@@ -25,48 +25,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+      body: const SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(
+              SizedBox(
                 height: 16,
               ),
-              const TrendingRow(title: 'Mais assistidos'),
-              const MovieRow(title: 'Melhor avaliados'),
-              const SizedBox(height: 16),
-              Text(
-                'Lançamentos',
-                style: GoogleFonts.aBeeZee(
-                  fontSize: 25,
-                ),
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
-                height: 200,
-                width: double.infinity,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Container(
-                          color: Colors.teal,
-                          width: 200,
-                          height: 150,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              TrendingRow(title: 'Mais assistidos'),
+              MovieRow(title: 'Melhor avaliados'),
+              MovieRow(title: 'Lançamentos')
             ],
           ),
         ),
