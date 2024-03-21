@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:thefilme/components/movie_row.dart';
-import 'package:thefilme/components/trending_row.dart';
+import 'package:thefilme/widgets/movie_row.dart';
+import 'package:thefilme/widgets/trending_row.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,3 +45,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+//  a5953675fff3e8f58ffa91fe4d8753ef
