@@ -14,12 +14,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Movie>> trendingMovies;
+  late Future<List<Movie>> topRatedMovies;
+  late Future<List<Movie>> upcomingMovies;
 
   @override
   void initState() {
     super.initState();
 
     trendingMovies = Api().getTrendingMovies();
+    topRatedMovies = Api().getTopRatedMovies();
+    upcomingMovies = Api().getUpcomingMovies();
   }
 
   @override
@@ -64,8 +68,44 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              const MovieRow(title: 'Melhor avaliados'),
-              const MovieRow(title: 'Lançamentos')
+              SizedBox(
+                child: FutureBuilder(
+                  future: topRatedMovies,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    } else if (snapshot.hasData) {
+                      return MovieRow(
+                        title: "Melhor avaliados",
+                        snapshot: snapshot,
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
+                child: FutureBuilder(
+                  future: upcomingMovies,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    } else if (snapshot.hasData) {
+                      return MovieRow(
+                        title: "Lançamentos",
+                        snapshot: snapshot,
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),

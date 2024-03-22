@@ -28,7 +28,7 @@ class TrendingRow extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: CarouselSlider.builder(
-            itemCount: 10,
+            itemCount: snapshot.data!.length,
             options: CarouselOptions(
               height: 300,
               autoPlay: true,
@@ -45,9 +45,10 @@ class TrendingRow extends StatelessWidget {
                   height: 300,
                   width: 200,
                   child: Image.network(
-                      filterQuality: FilterQuality.high,
-                      fit: BoxFit.cover,
-                      '${Constants.imagePath}${snapshot.data[itemIndex].posterPath}'),
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.cover,
+                    '${Constants.imagePath}${snapshot.data[itemIndex].posterPath}',
+                  ),
                 ),
               );
             },
