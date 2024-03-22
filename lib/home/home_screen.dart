@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thefilme/api/api.dart';
@@ -23,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
     trendingMovies = Api().getTrendingMovies();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,19 +35,37 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
       ),
-      body: const SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              TrendingRow(title: 'Mais assistidos'),
-              MovieRow(title: 'Melhor avaliados'),
-              MovieRow(title: 'Lançamentos')
+              SizedBox(
+                child: FutureBuilder(
+                  future: trendingMovies,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    } else if (snapshot.hasData) {
+                      return TrendingRow(
+                        title: "Mais populares",
+                        snapshot: snapshot,
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
+              const MovieRow(title: 'Melhor avaliados'),
+              const MovieRow(title: 'Lançamentos')
             ],
           ),
         ),
