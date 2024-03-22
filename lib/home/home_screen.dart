@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'The Filme',
+          'The Movie',
           style: GoogleFonts.aBeeZee(fontSize: 35),
         ),
         centerTitle: true,
