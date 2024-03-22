@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thefilme/constants.dart';
+import 'package:thefilme/details/DetailsScreen.dart';
 
 class MovieRow extends StatelessWidget {
   const MovieRow({
@@ -34,15 +35,27 @@ class MovieRow extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: SizedBox(
-                    width: 200,
-                    height: 150,
-                    child: Image.network(
-                      filterQuality: FilterQuality.high,
-                      fit: BoxFit.cover,
-                      '${Constants.imagePath}${snapshot.data![index].posterPath}',
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                          movie: snapshot.data[index],
+                        ),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: SizedBox(
+                      width: 200,
+                      height: 150,
+                      child: Image.network(
+                        filterQuality: FilterQuality.high,
+                        fit: BoxFit.cover,
+                        '${Constants.imagePath}${snapshot.data![index].posterPath}',
+                      ),
                     ),
                   ),
                 ),
