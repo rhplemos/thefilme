@@ -1,16 +1,17 @@
-# thefilme
+# Flutter Movie App
 
-A new Flutter project.
+Um aplicativo Flutter para explorar e visualizar informações sobre filmes utilizando a API do The Movie DB.
 
-## Getting Started
+## Recursos
 
-This project is a starting point for a Flutter application.
+- Consulta de filmes mais populares
+- Consulta de filmes mais bem avaliados
+- Consulta de lançamentos
+- Visualização detalhada de informações de filmes, como título, descrição, classificação, etc.
 
-A few resources to get you started if this is your first Flutter project:
+## Configuração do Projeto
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Clone este repositório:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   ```bash
+   git clone https://github.com/rhplemos/thefilme.git
