@@ -15,3 +15,5 @@ Um aplicativo Flutter para explorar e visualizar informações sobre filmes util
 
    ```bash
    git clone https://github.com/rhplemos/thefilme.git
+
+2. Insira sua api key na class Constants:
