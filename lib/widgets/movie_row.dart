@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thefilme/constants.dart';
-import 'package:thefilme/details/DetailsScreen.dart';
+import 'package:thefilme/details/details_screen.dart';
 
 class MovieRow extends StatelessWidget {
   const MovieRow({
