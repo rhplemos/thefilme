@@ -1,30 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thefilme/api/api.dart';
-import 'package:thefilme/models/movie.dart';
+import 'package:thefilme/home/home_controller.dart';
 import 'package:thefilme/widgets/movie_row.dart';
 import 'package:thefilme/widgets/trending_row.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Movie>> trendingMovies;
-  late Future<List<Movie>> topRatedMovies;
-  late Future<List<Movie>> upcomingMovies;
-
-  @override
-  void initState() {
-    super.initState();
-
-    trendingMovies = Api().getTrendingMovies();
-    topRatedMovies = Api().getTopRatedMovies();
-    upcomingMovies = Api().getUpcomingMovies();
-  }
+class HomeScreen extends GetView<HomeController> {
+  final HomeController controller = Get.put(HomeController(api: Api()));
 
   @override
   Widget build(BuildContext context) {
@@ -46,66 +29,37 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(
-                height: 16,
-              ),
-              SizedBox(
-                child: FutureBuilder(
-                  future: trendingMovies,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text(snapshot.error.toString()),
-                      );
-                    } else if (snapshot.hasData) {
-                      return TrendingRow(
-                        title: "Mais populares",
-                        snapshot: snapshot,
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              ),
-              SizedBox(
-                child: FutureBuilder(
-                  future: topRatedMovies,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text(snapshot.error.toString()),
-                      );
-                    } else if (snapshot.hasData) {
-                      return MovieRow(
-                        title: "Melhor avaliados",
-                        snapshot: snapshot,
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              ),
-              SizedBox(
-                child: FutureBuilder(
-                  future: upcomingMovies,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text(snapshot.error.toString()),
-                      );
-                    } else if (snapshot.hasData) {
-                      return MovieRow(
-                        title: "Lançamentos",
-                        snapshot: snapshot,
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              ),
+              const SizedBox(height: 16),
+              Obx(() {
+                if (controller.trendingMovies.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return TrendingRow(
+                    title: "Mais populares",
+                    movies: controller.trendingMovies,
+                  );
+                }
+              }),
+              Obx(() {
+                if (controller.topRatedMovies.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return MovieRow(
+                    title: "Melhor avaliados",
+                    movies: controller.topRatedMovies,
+                  );
+                }
+              }),
+              Obx(() {
+                if (controller.upcomingMovies.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return MovieRow(
+                    title: "Lançamentos",
+                    movies: controller.upcomingMovies,
+                  );
+                }
+              }),
             ],
           ),
         ),
@@ -113,5 +67,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-//  a5953675fff3e8f58ffa91fe4d8753ef
