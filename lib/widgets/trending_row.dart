@@ -11,7 +11,11 @@ class TrendingRow extends GetView<HomeController> {
   final String title;
   final RxList<Movie> movies;
 
-  TrendingRow(this.movies, {super.key, required this.title});
+  TrendingRow({
+    super.key,
+    required this.title,
+    required this.movies,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +54,8 @@ class TrendingRow extends GetView<HomeController> {
                   return GestureDetector(
                     onTap: () {
                       Get.to(() => DetailsScreen(
-                        movie: movies[itemIndex],
-                      ));
+                            movie: movies[itemIndex],
+                          ));
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),

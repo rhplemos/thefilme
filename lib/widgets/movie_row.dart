@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thefilme/constants.dart';
 import 'package:thefilme/details/details_screen.dart';
+import 'package:thefilme/models/movie.dart';
 
 class MovieRow extends StatelessWidget {
   const MovieRow({
     Key? key,
     required this.title,
-    required this.snapshot,
+    required this.movies,
   }) : super(key: key);
 
   final String title;
-  final AsyncSnapshot snapshot;
+  final RxList<Movie> movies;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class MovieRow extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            itemCount: snapshot.data!.length,
+            itemCount: movies.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -41,7 +43,7 @@ class MovieRow extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailsScreen(
-                          movie: snapshot.data[index],
+                          movie: movies[index],
                         ),
                       ),
                     );
@@ -54,7 +56,7 @@ class MovieRow extends StatelessWidget {
                       child: Image.network(
                         filterQuality: FilterQuality.high,
                         fit: BoxFit.cover,
-                        '${Constants.imagePath}${snapshot.data![index].posterPath}',
+                        '${Constants.imagePath}${movies[index].posterPath}',
                       ),
                     ),
                   ),
